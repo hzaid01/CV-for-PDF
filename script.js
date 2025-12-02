@@ -130,13 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ========== RIGHT-CLICK EFFECTS ==========
-    // Right-click context menu prevention with custom message
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        alert('Context menu disabled on this page!');
-        return false;
-    });
+
 
     // ========== KEYBOARD EFFECTS ==========
     // Keyboard shortcut: Press spacebar to highlight/reset all headings

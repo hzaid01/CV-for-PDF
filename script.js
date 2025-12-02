@@ -1,166 +1,129 @@
+// ========== EVENT 1: DOMContentLoaded ==========
+// Fires when HTML document has been completely loaded and parsed
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('CV website loaded successfully!');
+    console.log('✅ EVENT 1: DOMContentLoaded - CV website loaded successfully!');
+    
+    // Create event display notification
+    const notification = document.createElement('div');
+    notification.id = 'event-notification';
+    notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #1F574F; color: white; padding: 10px 20px; border-radius: 5px; z-index: 1000; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+    document.body.appendChild(notification);
+    
+    // Initialize all events after DOM is ready
+    initializeAllEvents();
+});
 
-    // ========== HOVER EFFECTS ==========
-    // Add hover effect to all sections
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-        section.addEventListener('mouseenter', function() {
-            this.style.backgroundColor = '#f0f0f0';
-            this.style.transition = 'background-color 0.3s ease';
-        });
-        
-        section.addEventListener('mouseleave', function() {
-            this.style.backgroundColor = '';
-        });
-    });
+// ========== EVENT 2: load ==========
+// Fires when the entire page has loaded, including images and stylesheets
+window.addEventListener('load', function() {
+    console.log('✅ EVENT 2: load - All resources (images, CSS) fully loaded!');
+    showNotification('Page Fully Loaded! 🎉');
+    
+    // Fade-in effect on page load
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s ease';
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
+});
 
-    // Hover effect on contact items
-    const contactItems = document.querySelectorAll('.contact-item');
-    contactItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.05)';
-            this.style.transition = 'transform 0.3s ease';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
-        });
-    });
+// Function to show event notifications
+function showNotification(message) {
+    const notification = document.getElementById('event-notification');
+    if (notification) {
+        notification.textContent = message;
+        notification.style.display = 'block';
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 2000);
+    }
+}
 
-    // Hover effect on list items
-    const listItems = document.querySelectorAll('li');
-    listItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.style.paddingLeft = '25px';
-            this.style.transition = 'padding 0.3s ease';
-            this.style.color = '#1e90ff';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            this.style.paddingLeft = '';
-            this.style.color = '';
-        });
-    });
-
-    // ========== REVEAL EFFECTS ==========
-    // Reveal elements on scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Apply reveal effect to all elements
-    document.querySelectorAll('.section, .hobby-item, .contact-item').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(el);
-    });
-
-    // ========== CLICK EFFECTS ==========
-    // Click effect on buttons and links
-    const clickableElements = document.querySelectorAll('a, button, .contact-item');
-    clickableElements.forEach(element => {
-        element.addEventListener('click', function(e) {
-            // Create ripple effect
-            const ripple = document.createElement('span');
-            ripple.style.position = 'absolute';
-            ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
-            ripple.style.borderRadius = '50%';
-            ripple.style.pointerEvents = 'none';
-            ripple.style.animation = 'ripple 0.6s ease-out';
+// Initialize all event listeners
+function initializeAllEvents() {
+    
+    // ========== EVENT 3: click ==========
+    // Fires when an element is clicked
+    const profileImg = document.querySelector('.profile-img');
+    if (profileImg) {
+        profileImg.addEventListener('click', function() {
+            console.log('✅ EVENT 3: click - Profile image clicked!');
+            showNotification('Profile Image Clicked! 📸');
             
-            this.style.position = 'relative';
-            this.style.overflow = 'hidden';
-            this.appendChild(ripple);
-            
-            setTimeout(() => ripple.remove(), 600);
-            
-            console.log('Clicked on:', this.textContent);
-        });
-    });
-
-    // ========== DOUBLE CLICK EFFECT ==========
-    // Double click to toggle visibility
-    const sections_toggle = document.querySelectorAll('.section');
-    sections_toggle.forEach((section, index) => {
-        section.addEventListener('dblclick', function() {
-            const isHidden = this.style.display === 'none';
-            this.style.display = isHidden ? 'block' : 'none';
-            console.log(`Section ${index} toggled`);
-        });
-    });
-
-    // ========== FOCUS EFFECTS ==========
-    // Focus effect on inputs
-    const inputs = document.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('focus', function() {
-            this.style.borderColor = '#1e90ff';
-            this.style.boxShadow = '0 0 5px rgba(30, 144, 255, 0.5)';
-        });
-        
-        input.addEventListener('blur', function() {
-            this.style.borderColor = '';
-            this.style.boxShadow = '';
-        });
-    });
-
-    // ========== MOUSEENTER EFFECTS ==========
-    // Mouseenter effect on header
-    const header = document.querySelector('.header-banner');
-    if (header) {
-        header.addEventListener('mouseenter', function() {
-            this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-            this.style.transition = 'box-shadow 0.3s ease';
-        });
-        
-        header.addEventListener('mouseleave', function() {
-            this.style.boxShadow = '';
+            // Toggle grayscale filter
+            const isGrayscale = this.style.filter.includes('grayscale(100%)');
+            this.style.filter = isGrayscale ? 'grayscale(0%)' : 'grayscale(100%)';
+            this.style.transition = 'filter 0.5s ease';
         });
     }
-
-
-
-    // ========== KEYBOARD EFFECTS ==========
-    // Keyboard shortcut: Press spacebar to highlight/reset all headings
-    let headingsHighlighted = false;
+    
+    // ========== EVENT 4: mouseenter ==========
+    // Fires when the mouse pointer enters an element
+    const headerBanner = document.querySelector('.header-banner');
+    if (headerBanner) {
+        headerBanner.addEventListener('mouseenter', function() {
+            console.log('✅ EVENT 4: mouseenter - Mouse entered header banner!');
+            this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+            this.style.transform = 'scale(1.02)';
+            this.style.transition = 'all 0.3s ease';
+            showNotification('Header Hover Active! ✨');
+        });
+    }
+    
+    // ========== EVENT 5: mouseleave ==========
+    // Fires when the mouse pointer leaves an element
+    if (headerBanner) {
+        headerBanner.addEventListener('mouseleave', function() {
+            console.log('✅ EVENT 5: mouseleave - Mouse left header banner!');
+            this.style.boxShadow = '';
+            this.style.transform = 'scale(1)';
+        });
+    }
+    
+    // ========== EVENT 6: keydown ==========
+    // Fires when a key is pressed down
+    let keyPressCount = 0;
     document.addEventListener('keydown', function(e) {
-        if (e.code === 'Space') {
+        keyPressCount++;
+        console.log(`✅ EVENT 6: keydown - Key pressed: ${e.key} (Code: ${e.code}, ASCII: ${e.keyCode})`);
+        
+        // Special action for Space key
+        if (e.code === 'Space' && e.target === document.body) {
             e.preventDefault();
-            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-            headingsHighlighted = !headingsHighlighted;
+            showNotification(`Space Pressed! Key Count: ${keyPressCount} ⌨️`);
             
+            // Toggle highlight on all headings
+            const headings = document.querySelectorAll('h1, h2, h3');
             headings.forEach(heading => {
-                if (headingsHighlighted) {
-                    heading.style.backgroundColor = 'green';
-                    heading.style.padding = '5px';
-                } else {
-                    heading.style.backgroundColor = '';
-                    heading.style.padding = '';
-                }
+                const isHighlighted = heading.style.backgroundColor === 'yellow';
+                heading.style.backgroundColor = isHighlighted ? '' : 'yellow';
+                heading.style.transition = 'background-color 0.3s ease';
             });
-            console.log(headingsHighlighted ? 'Headings highlighted!' : 'Headings reset!');
         }
     });
-
-    // ========== SCROLL EFFECT ==========
-    // Change header appearance on scroll
+    
+    // ========== EVENT 7: keyup ==========
+    // Fires when a key is released
+    document.addEventListener('keyup', function(e) {
+        console.log(`✅ EVENT 7: keyup - Key released: ${e.key}`);
+        
+        // Show ASCII code for released key
+        if (e.keyCode >= 65 && e.keyCode <= 90) {
+            showNotification(`Key "${e.key}" Released - ASCII: ${e.keyCode} 🔤`);
+        }
+    });
+    
+    // ========== EVENT 8: scroll ==========
+    // Fires when the document is scrolled
+    let scrollCount = 0;
     window.addEventListener('scroll', function() {
+        scrollCount++;
+        console.log(`✅ EVENT 8: scroll - Page scrolled! Position: ${window.scrollY}px (Count: ${scrollCount})`);
+        
         const header = document.querySelector('.header-banner');
         if (header) {
-            if (window.scrollY > 100) {
-                header.style.opacity = '0.8';
+            if (window.scrollY > 50) {
+                header.style.opacity = '0.95';
                 header.style.transform = 'scale(0.98)';
             } else {
                 header.style.opacity = '1';
@@ -168,79 +131,207 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             header.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
         }
-    });
-
-    // ========== MOUSEOVER EFFECTS ==========
-    // Mouseover effect on profile image
-    const profileImg = document.querySelector('.profile-img');
-    if (profileImg) {
-        profileImg.addEventListener('mouseover', function() {
-            this.style.filter = 'grayscale(0%) brightness(1.1)';
-            this.style.transform = 'rotate(5deg) scale(1.1)';
-            this.style.transition = 'all 0.3s ease';
-        });
         
-        profileImg.addEventListener('mouseout', function() {
-            this.style.filter = 'grayscale(0%)';
-            this.style.transform = 'rotate(0deg) scale(1)';
-        });
-    }
-
-    // ========== MOUSEDOWN EFFECTS ==========
-    // Mousedown effect (press effect)
-    clickableElements.forEach(element => {
-        element.addEventListener('mousedown', function() {
-            this.style.opacity = '0.7';
-            this.style.transition = 'opacity 0.1s ease';
-        });
-        
-        element.addEventListener('mouseup', function() {
-            this.style.opacity = '1';
-        });
+        if (scrollCount % 10 === 0) {
+            showNotification(`Scrolled ${scrollCount} times! 📜`);
+        }
     });
-
-    // ========== LOAD EFFECT ==========
-    // Fade-in effect on page load
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
-
-    // ========== RESIZE EFFECT ==========
-    // Change styling based on window resize
+    
+    // ========== EVENT 9: resize ==========
+    // Fires when the browser window is resized
     window.addEventListener('resize', function() {
-        console.log('Window resized to:', window.innerWidth, 'x', window.innerHeight);
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        console.log(`✅ EVENT 9: resize - Window resized to: ${width}x${height}px`);
+        showNotification(`Window: ${width}x${height}px 📐`);
+        
         const container = document.querySelector('.resume-container');
-        if (window.innerWidth < 768) {
+        if (width < 768) {
             container.style.padding = '10px';
         } else {
             container.style.padding = '';
         }
     });
-
-    // ========== ANIMATION EFFECT ==========
-    // Pulse animation on specific elements
-    const pulseElements = document.querySelectorAll('h2');
-    pulseElements.forEach(element => {
-        element.style.animation = 'pulse 2s infinite';
+    
+    // ========== EVENT 15: beforeunload ==========
+    // Fires before the page is about to be unloaded
+    window.addEventListener('beforeunload', function(e) {
+        console.log('✅ EVENT 15: beforeunload - User is leaving the page!');
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
     });
+    
+    // Create demo form for form events
+    createDemoForm();
+    
+    // Initialize drag and drop functionality
+    initializeDragDrop();
+}
 
-    // ========== DRAG EFFECT ==========
-    // Make elements draggable with visual feedback
-    const draggableElements = document.querySelectorAll('.section');
-    draggableElements.forEach(element => {
-        element.draggable = true;
+// Create demo form for form events
+function createDemoForm() {
+    const formHTML = `
+        <div style="position: fixed; bottom: 20px; left: 20px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; max-width: 300px;">
+            <h3 style="margin: 0 0 15px 0; color: #1F574F; font-size: 16px;">🎯 Event Demo Panel</h3>
+            
+            <form id="demo-form" style="display: flex; flex-direction: column; gap: 10px;">
+                <div>
+                    <label style="font-size: 12px; color: #666;">Type here (input/focus/blur):</label>
+                    <input type="text" id="demo-input" placeholder="Type something..." 
+                           style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px;">
+                    <div id="char-counter" style="font-size: 11px; color: #666; margin-top: 5px;">Characters: 0</div>
+                </div>
+                
+                <div>
+                    <label style="font-size: 12px; color: #666;">Select color (change):</label>
+                    <select id="demo-select" style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px;">
+                        <option value="">Choose...</option>
+                        <option value="red">Red Theme</option>
+                        <option value="blue">Blue Theme</option>
+                        <option value="green">Green Theme</option>
+                    </select>
+                </div>
+                
+                <button type="submit" style="padding: 10px; background: #1F574F; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 14px;">
+                    Submit Form 🚀
+                </button>
+            </form>
+            
+            <div id="drag-drop-area" style="margin-top: 15px; padding: 15px; border: 2px dashed #1F574F; border-radius: 5px; text-align: center; font-size: 12px; background: #f9f9f9;">
+                📦 Drag & Drop Zone<br><span style="font-size: 10px; color: #666;">Drag content blocks here</span>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', formHTML);
+    
+    // ========== EVENT 10: submit ==========
+    const demoForm = document.getElementById('demo-form');
+    if (demoForm) {
+        demoForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('✅ EVENT 10: submit - Form submitted!');
+            
+            const inputValue = document.getElementById('demo-input').value;
+            const selectValue = document.getElementById('demo-select').value;
+            
+            showNotification(`Form Submitted! ✅`);
+            alert(`Form Submitted!\nInput: ${inputValue || 'empty'}\nSelection: ${selectValue || 'none'}`);
+            
+            this.reset();
+            document.getElementById('char-counter').textContent = 'Characters: 0';
+        });
+    }
+    
+    // ========== EVENT 11: focus ==========
+    const demoInput = document.getElementById('demo-input');
+    if (demoInput) {
+        demoInput.addEventListener('focus', function() {
+            console.log('✅ EVENT 11: focus - Input field focused!');
+            showNotification('Input Focused! 🎯');
+            this.style.borderColor = '#1F574F';
+            this.style.boxShadow = '0 0 8px rgba(31, 87, 79, 0.5)';
+            this.style.transform = 'scale(1.05)';
+            this.style.transition = 'all 0.3s ease';
+        });
         
-        element.addEventListener('dragstart', function(e) {
+        // ========== EVENT 12: blur ==========
+        demoInput.addEventListener('blur', function() {
+            console.log('✅ EVENT 12: blur - Input field lost focus!');
+            showNotification('Input Blurred! 👋');
+            this.style.borderColor = '';
+            this.style.boxShadow = '';
+            this.style.transform = 'scale(1)';
+        });
+        
+        // ========== EVENT 14: input ==========
+        const charCounter = document.getElementById('char-counter');
+        demoInput.addEventListener('input', function() {
+            const length = this.value.length;
+            console.log(`✅ EVENT 14: input - Input value changed! Length: ${length}`);
+            if (charCounter) {
+                charCounter.textContent = `Characters: ${length}`;
+            }
+            
+            if (length % 5 === 0 && length > 0) {
+                showNotification(`${length} characters typed! ⌨️`);
+            }
+        });
+    }
+    
+    // ========== EVENT 13: change ==========
+    const selectElement = document.getElementById('demo-select');
+    if (selectElement) {
+        selectElement.addEventListener('change', function() {
+            console.log(`✅ EVENT 13: change - Selection changed to: ${this.value}`);
+            showNotification(`Selected: ${this.value} 🔄`);
+            
+            const colors = {
+                'red': '#ffebee',
+                'blue': '#e3f2fd',
+                'green': '#e8f5e9'
+            };
+            document.body.style.backgroundColor = colors[this.value] || '#e5e5e5';
+            document.body.style.transition = 'background-color 0.5s ease';
+        });
+    }
+}
+
+// Initialize drag and drop functionality
+function initializeDragDrop() {
+    // Make content blocks draggable
+    const contentBlocks = document.querySelectorAll('.content-block');
+    contentBlocks.forEach((block, index) => {
+        block.draggable = true;
+        block.style.cursor = 'move';
+        
+        block.addEventListener('dragstart', function(e) {
+            console.log(`✅ DRAG EVENT: dragstart - Started dragging block ${index + 1}`);
             this.style.opacity = '0.5';
+            this.style.border = '2px dashed #1F574F';
             e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+            showNotification('Dragging Content! 🎯');
         });
         
-        element.addEventListener('dragend', function() {
+        block.addEventListener('dragend', function() {
+            console.log(`✅ DRAG EVENT: dragend - Finished dragging block ${index + 1}`);
             this.style.opacity = '1';
+            this.style.border = '';
         });
     });
+    
+    // Make drop zone accept drops
+    const dropZone = document.getElementById('drag-drop-area');
+    if (dropZone) {
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.background = '#e8f5e9';
+            this.style.borderColor = '#4caf50';
+        });
+        
+        dropZone.addEventListener('dragleave', function() {
+            this.style.background = '#f9f9f9';
+            this.style.borderColor = '#1F574F';
+        });
+        
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            console.log('✅ DROP EVENT: drop - Content dropped in zone!');
+            showNotification('Content Dropped! 📦✅');
+            
+            this.style.background = '#c8e6c9';
+            this.innerHTML = '✅ Content Dropped Successfully!<br><span style="font-size: 10px;">Drag another block to try again</span>';
+            
+            setTimeout(() => {
+                this.style.background = '#f9f9f9';
+                this.style.borderColor = '#1F574F';
+                this.innerHTML = '📦 Drag & Drop Zone<br><span style="font-size: 10px; color: #666;">Drag content blocks here</span>';
+            }, 2000);
+        });
+    }
+}
 
-});
+console.log('📋 JavaScript Events Demo Loaded - 15 Events Implemented!');
 
